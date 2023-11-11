@@ -37,7 +37,7 @@ function formValidator() {
 
     else if (firstName) {
         document.getElementById('firstNameMessage').innerHTML = '';
-        document.getElementById('user_first_name').style.borderColor = 'green';
+        document.getElementById('user_first_name').style.borderColor = 'black';
     }
 
     //checks to see if last name is filled
@@ -50,7 +50,7 @@ function formValidator() {
 
     else if (lastName) {
         document.getElementById('lastNameMessage').innerHTML = '';
-        document.getElementById('user_last_name').style.borderColor = 'green';
+        document.getElementById('user_last_name').style.borderColor = 'black';
     }
 
 
@@ -71,7 +71,7 @@ function formValidator() {
 
     else if (email.includes('@') && email.includes('.')) {
         document.getElementById('emailMessage').innerHTML = '';
-        document.getElementById('user_email').style.borderColor = 'green';
+        document.getElementById('user_email').style.borderColor = 'black';
     }
 
 
@@ -87,7 +87,7 @@ function formValidator() {
 
     else if (userName) {
         document.getElementById('userNameMessage').innerHTML = '';
-        document.getElementById('username').style.borderColor = 'green';
+        document.getElementById('username').style.borderColor = 'black';
     }
 
 
@@ -108,7 +108,7 @@ function formValidator() {
 
     else if (pw.length >= 6) {
         document.getElementById('pwMessage').innerHTML = '';
-        document.getElementById('password').style.borderColor = 'green';
+        document.getElementById('password').style.borderColor = 'black';
     }
 
 
@@ -122,7 +122,7 @@ function formValidator() {
 
     else if (pwConfirm === pw) {
         document.getElementById('pwConfirmMessage').innerHTML = '';
-        document.getElementById('password_confirm').style.borderColor = 'green';
+        document.getElementById('password_confirm').style.borderColor = 'black';
     }
 
 
