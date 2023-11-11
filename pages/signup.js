@@ -15,6 +15,8 @@ function submitForm() {
     }
 }
 
+
+// Validate the form fields
 function formValidator() {
     let firstName = document.getElementById('user_first_name').value;
     let lastName = document.getElementById('user_last_name').value;
@@ -24,6 +26,8 @@ function formValidator() {
     let pwConfirm = document.getElementById('password_confirm').value;
     let isValid = true;
 
+
+    //Checks to see if first name is filled
     if (!firstName) {
         document.getElementById('firstNameMessage').innerHTML = 'First name is required <br>';
         document.getElementById('firstNameMessage').style.color = 'red';
@@ -31,6 +35,12 @@ function formValidator() {
         isValid = false;
     }
 
+    else if (firstName) {
+        document.getElementById('firstNameMessage').innerHTML = '';
+        document.getElementById('user_first_name').style.borderColor = 'green';
+    }
+
+    //checks to see if last name is filled
     if (!lastName) {
         document.getElementById('lastNameMessage').innerHTML = 'Last name is required <br>';
         document.getElementById('lastNameMessage').style.color = 'red';
@@ -38,6 +48,13 @@ function formValidator() {
         isValid = false;
     }
 
+    else if (lastName) {
+        document.getElementById('lastNameMessage').innerHTML = '';
+        document.getElementById('user_last_name').style.borderColor = 'green';
+    }
+
+
+    //checks to see if email is filled and valid
     if (!email) {
         document.getElementById('emailMessage').innerHTML = 'Email is required <br>';
         document.getElementById('emailMessage').style.color = 'red';
@@ -52,6 +69,13 @@ function formValidator() {
         isValid = false;
     }
 
+    else if (email.includes('@') && email.includes('.')) {
+        document.getElementById('emailMessage').innerHTML = '';
+        document.getElementById('user_email').style.borderColor = 'green';
+    }
+
+
+    //checks to see if username is filled and valid
     if (!userName) {
         document.getElementById('userNameMessage').innerHTML = 'Username is required <br>';
         document.getElementById('userNameMessage').style.color = 'red';
@@ -61,6 +85,13 @@ function formValidator() {
 
     //TODO: Check if username is already taken
 
+    else if (userName) {
+        document.getElementById('userNameMessage').innerHTML = '';
+        document.getElementById('username').style.borderColor = 'green';
+    }
+
+
+    //checks to see if password is filled and valid
     if (!pw) {
         document.getElementById('pwMessage').innerHTML = 'Password is required <br>';
         document.getElementById('pwMessage').style.color = 'red';
@@ -75,11 +106,23 @@ function formValidator() {
         isValid = false;
     }
 
+    else if (pw.length >= 6) {
+        document.getElementById('pwMessage').innerHTML = '';
+        document.getElementById('password').style.borderColor = 'green';
+    }
+
+
+    //checks to see if password confirmation matches password
     if (pw !== pwConfirm) {
         document.getElementById('pwConfirmMessage').innerHTML = 'Passwords do not match';
         document.getElementById('pwConfirmMessage').style.color = 'red';
         document.getElementById('password_confirm').style.borderColor = 'red';
         isValid = false;
+    }
+
+    else if (pwConfirm === pw) {
+        document.getElementById('pwConfirmMessage').innerHTML = '';
+        document.getElementById('password_confirm').style.borderColor = 'green';
     }
 
 
