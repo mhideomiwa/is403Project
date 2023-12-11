@@ -27,6 +27,7 @@
             <br>
             <div class="signUpFormContainer">
                 <form action="/createUser" method="post" class="signUpForm" onsubmit="submitForm()">
+                    <%= message %><br>
                     <label for="user_first_name">First Name</label> <br>
                     <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30"> <br>
                     <span id="firstNameMessage"></span>

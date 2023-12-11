@@ -26,6 +26,7 @@
             <h2>Log In</h2>
             <br>
             <div class="logInFormContainer">
+                <div id="loginError" style="color: red;"><%= message %></div>
                 <form action="#" method="post" class="logInForm" onsubmit="submitForm()">
                     <label for="username">Username</label> <br>
                     <input type="text" id="username" name="username" class="required, logInInput" maxlength="30"> <br>
