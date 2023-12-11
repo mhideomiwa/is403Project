@@ -37,6 +37,8 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
+app.get('/about', (req, res) => {
+    res.render('about');
 
 app.get('/dance', (req, res) => {
     res.render('dance');
