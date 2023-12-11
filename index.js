@@ -37,6 +37,23 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
+
+app.get('/dance', (req, res) => {
+    res.render('dance');
+});
+app.get('/gym', (req, res) => {
+    res.render('gym');
+});
+app.get('/study', (req, res) => {
+    res.render('study');
+});
+app.get('/simp', (req, res) => {
+    res.render('simp');
+});
+app.get('/letsDate', (req, res) => {
+    res.render('letsDate');
+});
+
 // app.post('/createUser', (req,res) => {
 //     req.body.()
 // })
