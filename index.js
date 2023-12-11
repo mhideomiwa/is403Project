@@ -12,7 +12,10 @@ const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 
-app.set("views", path.join(__dirname, "pages"));
+app.set("views", path.join(__dirname, "public/pages"));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 
 const knex = require("knex")({
     client: "pg",
@@ -24,6 +27,14 @@ const knex = require("knex")({
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
+});
+
+app.get('/', (req,res) => {
+    res.render('../index');
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
 });
 
 // app.post('/createUser', (req,res) => {
