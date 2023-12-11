@@ -14,7 +14,6 @@ function loadPlaylist() {
 
     // Adding everything to the page
     document.getElementById('playlistImg').src = TEST_PLAYLIST.image;
-    document.getElementById('playlistTable').innerHTML = playlist; // Set playlist to table content
     document.getElementById('playlistTableHeaders').innerHTML = playlistHeader; // Set playlist header to table header
     document.title = TEST_PLAYLIST.name;
     document.getElementById('Playlist_name').innerHTML = TEST_PLAYLIST.name;
