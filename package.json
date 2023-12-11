@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +17,7 @@
     "node": "^21.2.0",
     "pg": "^8.11.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }
