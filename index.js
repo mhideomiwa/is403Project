@@ -39,19 +39,19 @@ app.get('/login', (req, res) => {
 
 
 app.get('/dance', (req, res) => {
-    res.render('dance');
+    res.render('playlist');
 });
 app.get('/gym', (req, res) => {
-    res.render('gym');
+    res.render('playlist');
 });
 app.get('/study', (req, res) => {
-    res.render('study');
+    res.render('playlist');
 });
 app.get('/simp', (req, res) => {
-    res.render('simp');
+    res.render('playlist');
 });
 app.get('/letsDate', (req, res) => {
-    res.render('letsDate');
+    res.render('playlist');
 });
 
 // app.post('/createUser', (req,res) => {
