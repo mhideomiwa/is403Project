@@ -1,22 +1,29 @@
-let express = require('express');
-
+const express = require('express');
 const session = require("express-session");
-
-let app = express();
-
+const ejs = require("ejs");
 const bcrypt = require("bcrypt");
+const path = require('path');
+const { guestNavbar, userNavbar } = require('./public/modules/navbars.js');
 
-let path = require('path');
-
+const app = express();
 const port = process.env.PORT || 3000;
 
+// View engine setup
 app.set("view engine", "ejs");
-
 app.set("views", path.join(__dirname, "public/pages"));
 
+// Static files and form data handling
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
+// Session setup
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+}));
+
+// Knex setup
 const knex = require("knex")({
     client: "pg",
     connection: {
@@ -29,8 +36,16 @@ const knex = require("knex")({
     }
 });
 
-app.get('/', (req,res) => {
-    res.render('../index');
+// Routes
+app.get('/', (req, res) => {
+    res.render(path.join(__dirname, 'public/index'), { navbar: guestNavbar });
+    // console.log(guestNavbar);
+    // To be updated after login implementation:
+    // if (req.session.user) {
+    //     res.render('../index', {navbar: userNavbar});
+    // } else {
+    //     res.render(path.join(__dirname, 'public/pages/index'), { navbar: guestNavbar });
+    // }
 });
 
 app.get('/login', (req, res) => {

@@ -1,0 +1,74 @@
+/* navbar.css */
+
+/* Navbar Styles */
+.navbar {
+    align-items: center;
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+}
+
+.navbar-brand {
+    margin-right: auto;
+    font-weight: bold; /* Example: Make the brand bold */
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    color: rgba(255, 255, 255, 0.9); /* Change link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+.navbar-nav .logInButton {
+    background-color: #1abb9b;
+    color: white;
+    padding: 3px 5px; /* Adjust padding as needed */
+    margin: 8px 0;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+/* Improved login button hover effect */
+.navbar-nav .logInButton:hover {
+    background-color: #159e7d; /* Change to your preferred hover color */
+}
+
+/* Media Queries for Smaller Screens */
+/*@media (max-width: 991.98px) {*/
+/*    .navbar {*/
+/*        justify-content: center;*/
+/*        padding: 0.5rem 0.8rem; !* Adjust padding as needed *!*/
+/*    }*/
+
+/*    .navbar-brand,*/
+/*    .navbar-toggler {*/
+/*        margin: 0;*/
+/*    }*/
+
+/*    .navbar-toggler {*/
+/*        border: none;*/
+/*        background-color: transparent;*/
+/*    }*/
+
+/*    .navbar-nav {*/
+/*        text-align: center;*/
+/*        align-items: center;*/
+/*        justify-content: center;*/
+/*        flex-direction: column; !* Stack items vertically *!*/
+/*    }*/
+
+/*    .navbar-nav .nav-link,*/
+/*    .navbar-nav .logInButton {*/
+/*        margin: 5px 0; !* Adjust margin between items *!*/
+/*        display: block;*/
+/*        width: 100%; !* Full width for smaller screens *!*/
+/*        text-align: center;*/
+/*    }*/
+/*}*/
