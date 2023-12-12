@@ -27,15 +27,13 @@
             <br>
             <div class="signUpFormContainer">
                 <form action="/createUser" method="post" class="signUpForm" onsubmit="submitForm()">
+                    <%= message %><br>
                     <label for="user_first_name">First Name</label> <br>
                     <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30"> <br>
                     <span id="firstNameMessage"></span>
                     <label for="user_last_name">Last Name</label> <br>
                     <input type="text" id="user_last_name" name="user_last_name" class="required, signUpInput" maxlength="30"> <br>
                     <span id="lastNameMessage"></span>
-                    <label for="user_email">Email Address</label> <br>
-                    <input type="text" id="user_email" name="user_email" class="required, signUpInput" maxlength="30"> <br>
-                    <span id="emailMessage"></span>
                     <label for="username">Username</label> <br>
                     <input type="text" id="username" name="username" class="required, signUpInput" maxlength="30"> <br>
                     <span id="userNameMessage"></span>
