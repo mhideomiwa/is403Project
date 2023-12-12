@@ -15,6 +15,13 @@ app.set("views", path.join(__dirname, "public/pages"));
 // Static files and form data handling
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public', {
+    setHeaders: (res, path, stat) => {
+        if (path.endsWith('.js')) {
+            res.set('Content-Type', 'application/javascript');
+        }
+    }
+}));
 
 // Session setup
 app.use(session({
@@ -30,7 +37,7 @@ const knex = require("knex")({
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
         password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
-        database: process.env.RDS_DB_NAME || 'users',
+        database: process.env.RDS_DB_NAME || 'project',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -120,7 +127,7 @@ app.get('/login', (req, res) => {
 */
 
 app.get('/about', (req, res) => {
-    res.render('about');
+    res.render('about', {navbar: guestNavbar });
 });
 
 app.get('/dance', (req, res) => {
@@ -139,8 +146,34 @@ app.get('/simp', (req, res) => {
     res.render('playlist');
 });
 
-app.get('/letsDate', (req, res) => {
-    res.render('playlist');
+app.get('/letsDate', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 1);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: './assets/img/portfolio/game.png' });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/letsDate', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 1);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
 });
 
 // app.post('/createUser', (req,res) => {

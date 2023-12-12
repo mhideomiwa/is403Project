@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="playlist.js"></script>
+    <script src="./pages/playlist.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/playlist.css">
 </head>
@@ -26,19 +26,23 @@
     <div class="playlistContainer">
         <h1 id="Playlist_name"></h1>
         <div id="playlistImgContainer">
-            <img id="playlistImg" src="" alt="Playlist Image">
+            <%- playlistImage %>>
         </div>
         <br>
     </div>
     <div class="playlistTableContainer">
-        <table id="playlistTableHeaders" class="playlistTableHeaders">
-            <!-- Table headers -->
+        <table id="playlistTable" class="playlistTable">
+            <thead>
+            <tr class="playlistTableHeaders">
+                <th class="resultsHeaders">Song Title</th>
+                <th class="resultsHeaders">Artist</th>
+                <th class="resultsHeaders">Genre</th>
+            </tr>
+            </thead>
+            <tbody id="playlistTableBody" class="resultsContent">
+            <% include('../modules/songTable.ejs') %>
+            </tbody>
         </table>
-        <div class="playlistTableContentWrapper">
-            <table id="playlistTable" class="playlistTable">
-                <!-- Table content -->
-            </table>
-        </div>
     </div>
 </div>
 </body>
