@@ -1,0 +1,97 @@
+<!-- File: song-share-form.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/addSong.css"> <!-- You may want to create a new CSS file for styling -->
+    <title>Song Share - Your Song Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<!-- Your navigation bar or header section can be added here -->
+
+<div>
+    <h2 class="shareSong">Share Your Song</h2>
+    <form id="songShareForm" onsubmit="return validateForm()" action="/submitSong" method="post">
+
+        <!-- Song Title -->
+        <label for="songTitle">Song Title:*</label>
+        <input type="text" id="songTitle" name="songTitle" required>
+
+        <!-- Artist Name -->
+        <label for="artistName">Artist Name:*</label>
+        <input type="text" id="artistName" name="artistName" required>
+
+        <!-- Genre -->
+        <label for="genre">Genre:*</label>
+        <select id="genre" name="genre" required>
+            <option value="pop">Pop</option>
+            <option value="rock">Rock</option>
+            <option value="rap">Rap</option>
+            <option value="country">Country</option>
+            <option value="jazz">Jazz</option>
+            <option value="r&b">R&B</option>
+            <option value="classical">Classical</option>
+            <option value="folk">Folk</option>
+            <option value="indie">Indie</option>
+            <option value="gospel">Gospel</option>
+            <option value="soul">Soul</option>
+            <!-- Add more options as needed -->
+        </select>
+        
+        <!-- Playlist Category -->
+        <label for="playlistCategory">Playlist Category:*</label>
+        <select id="playlistCategory" name="playlistCategory" required>
+            <option value="dance">Dance</option>
+            <option value="simp">Simp</option>
+            <option value="gym">Gym</option>
+            <option value="letsDate">LetsDate</option>
+            <option value="studyMusic">StudyMusic</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <!-- Additional Fields can be added as needed -->
+
+        <button type="submit">Share Song</button>
+
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var form = document.getElementById("songShareForm");
+        var elements = form.elements;
+
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].hasAttribute("required") && elements[i].type !== "range" && elements[i].value === "") {
+                alert("Please fill in all required fields.");
+                return false;
+            }
+
+            if (elements[i].type === "range" && elements[i].hasAttribute("required")) {
+                // Check if the sliding bar has been interacted with (value other than the default)
+                if (elements[i].value === "1" && !elements[i].hasAttribute("data-interacted")) {
+                    alert("Please select a value for the sliding bar questions.");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    // Add an event listener to mark sliding bars as interacted
+    document.addEventListener("input", function (event) {
+        if (event.target.type === "range") {
+            event.target.setAttribute("data-interacted", "true");
+        }
+    });
+</script>
+
+</body>
+
+</html>

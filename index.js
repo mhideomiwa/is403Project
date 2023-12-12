@@ -52,6 +52,27 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-app.listen(port, () => {
-    console.log('Listening on port ' + port);
+app.get('/about', (req, res) => {
+    res.render('about');
+
+app.get('/dance', (req, res) => {
+    res.render('dance');
 });
+app.get('/gym', (req, res) => {
+    res.render('gym');
+});
+app.get('/study', (req, res) => {
+    res.render('study');
+});
+app.get('/simp', (req, res) => {
+    res.render('simp');
+});
+app.get('/letsDate', (req, res) => {
+    res.render('letsDate');
+});
+
+// app.post('/createUser', (req,res) => {
+//     req.body.()
+// })
+
+app.listen(port, () => {console.log('listening on ' + port)})
