@@ -154,7 +154,7 @@ app.get('/letsDate', async (req, res) => {
             .where("playlist.playlist_id", 1);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: './assets/img/portfolio/game.png' });
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: './assets/img/portfolio/game.png', navbar: guestNavbar });
         res.send(tableRowsHTML);
     } catch (error) {
         console.error('Fetch error:', error);
