@@ -85,6 +85,12 @@ app.post("/login", (req, res) => {
     });
 });
 
+//logout
+app.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.sendFile(__dirname + "/public/pages/index.ejs");
+})
+
 app.post("/signup", (req, res) => {
     let firstname = req.body.user_first_name;
     let lastname = req.body.user_last_name;
@@ -179,5 +185,7 @@ app.post('/letsDate', async (req, res) => {
 // app.post('/createUser', (req,res) => {
 //     req.body.()
 // })
+
+
 
 app.listen(port, () => { console.log('listening on ' + port) });
