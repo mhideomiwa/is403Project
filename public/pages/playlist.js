@@ -1,7 +1,10 @@
+/*
 document.addEventListener('DOMContentLoaded', async () => {
+    const hrefVal = document.getElementById('playlistId').value
+    console.log('playlistId: ' + hrefVal)
     // alert("This is the playlist page 1");
     try {
-        const response = await fetch('/letsDate', {
+        const response = await fetch(hrefVal, {
             method: 'POST',
             body: '',
             headers: {
@@ -22,3 +25,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Test alert to make sure this is loading
     // alert("This is the playlist page");
 });
+*/
+
