@@ -37,8 +37,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
-        database: process.env.RDS_DB_NAME || 'project',
+        password: process.env.RDS_PASSWORD || 'thuet12345',
+        database: process.env.RDS_DB_NAME || 'project3',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -436,6 +436,18 @@ app.post('/submitSong', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+app.get('/profile', (req, res) => {
+    if (req.session.user) {
+            knex("user").select().where("username", req.session.user.username).then(user => {
+                res.render(__dirname + "/public/pages/profile.ejs", {navbar: userNavbar, user: user[0]}) 
+        })
+
+    } else {
+        res.render(__dirname + "/public/pages/login", {message: "", navbar: userNavbar});
+    }
+});
+
 
 
 
