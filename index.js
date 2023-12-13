@@ -154,7 +154,7 @@ app.get('/letsDate', async (req, res) => {
             .where("playlist.playlist_id", 1);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: './assets/img/portfolio/game.png', navbar: guestNavbar });
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">' });
         res.send(tableRowsHTML);
     } catch (error) {
         console.error('Fetch error:', error);
@@ -166,7 +166,7 @@ app.post('/letsDate', async (req, res) => {
         const songs = knex("songplay").select()
             .join("song", "songplay.song_id", "=", "song.song_id")
             .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
-            .where("playlist.playlist_id", 1);
+            .where("playlist.playlist_id", 4);
         const songs2 = await songs;
         console.log('Successful Post Request')
         const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
