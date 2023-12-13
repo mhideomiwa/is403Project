@@ -36,8 +36,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
-        database: process.env.RDS_DB_NAME || 'project',
+        password: process.env.RDS_PASSWORD || 'admin',
+        database: process.env.RDS_DB_NAME || 'project3',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -73,7 +73,7 @@ app.post("/login", (req, res) => {
                 req.session.user = {
                     username: username
                 }
-                res.sendFile(__dirname + "/public/pages/index.ejs");
+                res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
             } else {
                 // If password is incorrect, display error message in login.ejs
                 res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
@@ -85,7 +85,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.post("/signup", (req, res) => {
+app.post("/createUser", (req, res) => {
     let firstname = req.body.user_first_name;
     let lastname = req.body.user_last_name;
     let username = req.body.username;
@@ -96,11 +96,11 @@ app.post("/signup", (req, res) => {
             // If username already exists, display error message in signup.ejs
             res.render(__dirname + "/public/pages/signup", {message: 'Username already exists.'});
         }
-        else if(firstname === "" || lastname === "" || username === "" || password === "" || email === "") {
+        else if(firstname === "" || lastname === "" || username === "" || password === "") {
             // If any field is empty, display error message in signup.ejs
             res.render(__dirname + "/public/pages/signup", {message: 'Please fill in all fields.'});
         }
-        else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30 || email.length > 30) {
+        else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30) {
             // If any field is longer than 30 characters, display error message in signup.ejs
             res.render(__dirname + "/public/pages/signup", {message: 'Please make sure all fields are less than 30 characters.'});
         }
@@ -111,7 +111,7 @@ app.post("/signup", (req, res) => {
                 username: username,
                 password: password
             }).then(user => {
-                res.sendFile(__dirname + "/public/pages/index.ejs");
+                res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
             });
         }
     });
