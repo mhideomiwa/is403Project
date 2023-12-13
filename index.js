@@ -202,20 +202,16 @@ app.get('/gym', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: userNavbar,
-                addSongButton: addSongButton,
-                addSongModal: addSongModal,
+                playlistImage: 'src="./assets/img/portfolio/safe.png" alt="dating image"',
+                navbar: userNavbar
             });
             res.send(tableRowsHTML);
         }
         else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: guestNavbar,
-                addSongButton: '',
-                addSongModal: '',
+                playlistImage: 'src="./assets/img/portfolio/safe.png" alt="dating image"',
+                navbar: guestNavbar
             });
             res.send(tableRowsHTML);
         }
@@ -250,20 +246,16 @@ app.get('/study', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: userNavbar,
-                addSongButton: addSongButton,
-                addSongModal: addSongModal,
+                playlistImage: 'src="./assets/img/portfolio/circus.png" alt="dating image"',
+                navbar: userNavbar
             });
             res.send(tableRowsHTML);
         }
         else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: guestNavbar,
-                addSongButton: '',
-                addSongModal: '',
+                playlistImage: 'src="./assets/img/portfolio/circus.png" alt="dating image"',
+                navbar: guestNavbar
             });
             res.send(tableRowsHTML);
         }
@@ -355,10 +347,8 @@ app.get('/letsDate', async (req, res) => {
         else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: guestNavbar,
-                addSongButton: '',
-                addSongModal: '',
+                playlistImage: 'src="./assets/img/portfolio/game.png" alt="dating image"',
+                navbar: guestNavbar
             });
             res.send(tableRowsHTML);
         }
