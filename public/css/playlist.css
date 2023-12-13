@@ -54,6 +54,17 @@ h1 {
     /*background: #f1f1f1;*/
 }
 
+.addsongbutton {
+    background-color: #1abb9b; /* Green color, you can adjust it */
+    color: white; /* Text color */
+    padding: 15px 25px; /* Adjust padding as needed */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    display: block; /* Make it a block element */
+    margin: 20px auto 0; /* Center the button and add margin to the top */
+    cursor: pointer; /* Add cursor pointer on hover */
+}
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888;
