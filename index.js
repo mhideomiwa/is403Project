@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
     if (req.session.user) {
         res.render('../index', {navbar: userNavbar});
     } else {
-        res.render(path.join(__dirname, 'public/pages/index'), { navbar: guestNavbar });
+        res.render(path.join(__dirname, 'public/index'), { navbar: guestNavbar });
     }
 });
 
