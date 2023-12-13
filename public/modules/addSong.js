@@ -18,17 +18,17 @@ const addSongModal = `
             <!-- Genre -->
             <label for="genre">Genre:*</label>
             <select id="genre" name="genre" required>
-                <option value="pop">Pop</option>
-                <option value="rock">Rock</option>
-                <option value="rap">Rap</option>
-                <option value="country">Country</option>
-                <option value="jazz">Jazz</option>
-                <option value="r&b">R&B</option>
-                <option value="classical">Classical</option>
-                <option value="folk">Folk</option>
-                <option value="indie">Indie</option>
-                <option value="gospel">Gospel</option>
-                <option value="soul">Soul</option>
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Rap">Rap</option>
+                <option value="Country">Country</option>
+                <option value="Jazz">Jazz</option>
+                <option value="R&B">R&B</option>
+                <option value="Classical">Classical</option>
+                <option value="Folk">Folk</option>
+                <option value="Indie">Indie</option>
+                <option value="Gospel">Gospel</option>
+                <option value="Soul">Soul</option>
                 <!-- Add genre options as needed -->
             </select>
             <br>
