@@ -36,8 +36,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'admin',
-        database: process.env.RDS_DB_NAME || 'project3',
+        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
+        database: process.env.RDS_DB_NAME || 'project',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -45,19 +45,14 @@ const knex = require("knex")({
 
 // Routes
 app.get('/', (req, res) => {
-    res.render(path.join(__dirname, 'public/index'), { navbar: guestNavbar });
-    // console.log(guestNavbar);
-    // To be updated after login implementation:
-    // if (req.session.user) {
-    //     res.render('../index', {navbar: userNavbar});
-    // } else {
-    //     res.render(path.join(__dirname, 'public/pages/index'), { navbar: guestNavbar });
-    // }
+    if (req.session.user) {
+        res.render('../index', {navbar: userNavbar});
+    } else {
+        res.render(path.join(__dirname, 'public/pages/index'), { navbar: guestNavbar });
+    }
 });
 
-app.get("/signup", (req, res) => {
-    res.render(__dirname + "/public/pages/signup.ejs", {message: ""});
-});
+
 
 app.get("/login", (req, res) => {
     res.render(__dirname + "/public/pages/login", {message: ""});
@@ -73,7 +68,7 @@ app.post("/login", (req, res) => {
                 req.session.user = {
                     username: username
                 }
-                res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
+                res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
             } else {
                 // If password is incorrect, display error message in login.ejs
                 res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
@@ -89,9 +84,13 @@ app.post("/login", (req, res) => {
 //logout
 app.get("/logout", (req, res) => {
     req.session.destroy();
-    res.sendFile(__dirname + "/public/pages/index.ejs");
+    res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
 })
 
+
+app.get("/signup", (req, res) => {
+    res.render(__dirname + "/public/pages/signup.ejs", {message: ""});
+});
 
 app.post("/createUser", (req, res) => {
     let firstname = req.body.user_first_name;
@@ -119,6 +118,9 @@ app.post("/createUser", (req, res) => {
                 username: username,
                 password: password
             }).then(user => {
+                req.session.user = {
+                    username: username
+                }
                 res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
             });
         }
@@ -135,7 +137,11 @@ app.get('/login', (req, res) => {
 */
 
 app.get('/about', (req, res) => {
-    res.render('about', {navbar: guestNavbar });
+    if (req.session.user) {
+        res.render('about', { navbar: userNavbar });
+    } else {
+        res.render('about', {navbar: guestNavbar});
+    }
 });
 
 app.get('/dance', async (req, res) => {
@@ -146,8 +152,20 @@ app.get('/dance', async (req, res) => {
             .where("playlist.playlist_id", 1);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
-        res.send(tableRowsHTML);
+        if (req.session.user) {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: userNavbar });
+            res.send(tableRowsHTML);
+        } else {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: guestNavbar
+            });
+            res.send(tableRowsHTML);
+        }
     } catch (error) {
         console.error('Fetch error:', error);
     }
@@ -160,7 +178,7 @@ app.post('/dance', async (req, res) => {
             .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
             .where("playlist.playlist_id", 1);
         const songs2 = await songs;
-        console.log('Successful Post Request')
+        // console.log('Successful Post Request')
         const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
         res.send(tableRowsTHML);
     } catch (error) {
@@ -176,8 +194,22 @@ app.get('/gym', async (req, res) => {
             .where("playlist.playlist_id", 5);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
-        res.send(tableRowsHTML);
+        if (req.session.user) {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: userNavbar
+            });
+            res.send(tableRowsHTML);
+        }
+        else {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: guestNavbar
+            });
+            res.send(tableRowsHTML);
+        }
     } catch (error) {
         console.error('Fetch error:', error);
     }
@@ -206,8 +238,22 @@ app.get('/study', async (req, res) => {
             .where("playlist.playlist_id", 3);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
-        res.send(tableRowsHTML);
+        if (req.session.user) {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: userNavbar
+            });
+            res.send(tableRowsHTML);
+        }
+        else {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: guestNavbar
+            });
+            res.send(tableRowsHTML);
+        }
     } catch (error) {
         console.error('Fetch error:', error);
     }
@@ -266,8 +312,18 @@ app.get('/letsDate', async (req, res) => {
             .where("playlist.playlist_id", 4);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
-        res.send(tableRowsHTML);
+        if(req.session.user) {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: userNavbar });
+            res.send(tableRowsHTML);
+        }
+        else {
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
+                songs: songs2,
+                playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                navbar: guestNavbar
+            });
+            res.send(tableRowsHTML);
+        }
     } catch (error) {
         console.error('Fetch error:', error);
     }
