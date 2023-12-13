@@ -30,17 +30,21 @@
                 <%= message %><br>
                 <!-- Input field for user's first name -->
                 <label for="user_first_name">First Name</label>
-                <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30" onkeyup="validateFirstName()" value="<%- user.first_name %>"> <br>
+                <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30" onkeyup="validateFirstName()" value="<%- user.first_name %>"> 
+                <br>
+                <br>
                 <!-- Display validation message for first name -->
                 <span id="firstNameMessage"></span>
                 <!-- Input field for user's last name -->
                 <label for="user_last_name">Last Name</label>
-                <input type="text" id="user_last_name" name="user_last_name" class="required, signUpInput" maxlength="30" onkeyup="validateLastName()" value="<%- user.last_name %>"> <br>
+                <input type="text" id="user_last_name" name="user_last_name" class="required, signUpInput" maxlength="30" onkeyup="validateLastName()" value="<%- user.last_name %>"> 
+                <br><br>
                 <!-- Display validation message for last name -->
                 <span id="lastNameMessage"></span>
                 <!-- Display the username (read-only) -->
                 <label for="username">Username</label>
                 <%- user.username %> <br>
+                <br>
                 <!-- Submit button for submitting profile changes -->
                 <input type="submit" id="editProfileButton" value="Submit Changes" class="editButton">
             </form><br>
