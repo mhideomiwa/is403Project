@@ -15,6 +15,13 @@ app.set("views", path.join(__dirname, "public/pages"));
 // Static files and form data handling
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public', {
+    setHeaders: (res, path, stat) => {
+        if (path.endsWith('.js')) {
+            res.set('Content-Type', 'application/javascript');
+        }
+    }
+}));
 
 // Session setup
 app.use(session({
@@ -120,27 +127,53 @@ app.get('/login', (req, res) => {
 */
 
 app.get('/about', (req, res) => {
-    res.render('about');
+    res.render('about', {navbar: guestNavbar });
 });
 
 app.get('/dance', (req, res) => {
-    res.render('dance');
+    res.render('playlist');
 });
 
 app.get('/gym', (req, res) => {
-    res.render('gym');
+    res.render('playlist');
 });
 
 app.get('/study', (req, res) => {
-    res.render('study');
+    res.render('playlist');
 });
 
 app.get('/simp', (req, res) => {
-    res.render('simp');
+    res.render('playlist');
 });
 
-app.get('/letsDate', (req, res) => {
-    res.render('letsDate');
+app.get('/letsDate', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 1);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: './assets/img/portfolio/game.png', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/letsDate', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 1);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
 });
 
 // app.post('/createUser', (req,res) => {

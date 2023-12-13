@@ -1,15 +1,15 @@
 /* navbar.css */
 
 /* Navbar Styles */
-.navbar {
-    align-items: center;
-    padding: 0.5rem 1rem; /* Adjust padding as needed */
-}
+/*.navbar {*/
+/*    align-items: center;*/
+/*    !*padding: 0.5rem 1rem; !* Adjust padding as needed *!*!*/
+/*}*/
 
-.navbar-brand {
-    margin-right: auto;
-    font-weight: bold; /* Example: Make the brand bold */
-}
+/*.navbar-brand {*/
+/*    margin-right: auto;*/
+/*    font-weight: bold; !* Example: Make the brand bold *!*/
+/*}*/
 
 .navbar-nav {
     display: flex;
@@ -17,12 +17,12 @@
     justify-content: flex-end;
 }
 
-.navbar-nav .nav-link {
-    padding: 0.5rem 1rem;
-    color: rgba(255, 255, 255, 0.9); /* Change link color */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease-in-out; /* Smooth color transition */
-}
+/*.navbar-nav .nav-link {*/
+/*    padding: 0.5rem 1rem;*/
+/*    color: rgba(255, 255, 255, 0.9); !* Change link color *!*/
+/*    text-decoration: none; !* Remove underline *!*/
+/*    transition: color 0.3s ease-in-out; !* Smooth color transition *!*/
+/*}*/
 
 .navbar-nav .logInButton {
     background-color: #1abb9b;
