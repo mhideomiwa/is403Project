@@ -37,8 +37,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'thuet12345',
-        database: process.env.RDS_DB_NAME || 'project3',
+        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
+        database: process.env.RDS_DB_NAME || 'project',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -444,10 +444,65 @@ app.get('/profile', (req, res) => {
         })
 
     } else {
-        res.render(__dirname + "/public/pages/login", {message: "", navbar: userNavbar});
+        res.redirect('/login');
     }
 });
 
+app.get('/editProfile', (req, res) => {
+    if (req.session.user) {
+        knex("users").select().where("username", req.session.user.username).then(user => {
+            res.render(__dirname + "/public/pages/editProfile.ejs", {navbar: usernavbar, user: user[0], message: ''});
+        })
+    } else {
+        res.redirect('login');
+    }
+});
+
+app.post('/editProfile', (req, res) => {
+    let firstname = req.body.user_first_name;
+    let lastname = req.body.user_last_name;
+    let email = req.body.user_email;
+
+    if (firstname === "" || lastname === "" || email === "") {
+        // If any field is empty, display an error message
+        res.render(__dirname + "/public/pages/editProfile", { message: 'Please fill in all fields.' });
+    } else if (firstname.length > 30 || lastname.length > 30 || email.length > 30) {
+        // If any field is longer than 30 characters, display an error message
+        res.render(__dirname + "/public/pages/editProfile", { message: 'Please make sure all fields are less than 30 characters.' });
+    } else {
+        // Update the user's information in the database
+        knex("users")
+            .where("username", req.session.user.username)
+            .update({
+                first_name: firstname,
+                last_name: lastname,
+                email: email,
+            })
+            .then(() => {
+                // Fetch the updated user data after the update operation
+                knex("users")
+                    .select()
+                    .where("username", req.session.user.username)
+                    .then(updatedUser => {
+                        const user = updatedUser[0]; // Extract the user object from the array
+
+                        // Render the profile page with the updated user information
+                        res.render(__dirname + "/public/pages/profile", { message: "Account updated successfully.", navbar: userNavbar, user: user });
+
+                    })
+                    .catch(err => {
+                        // Handle any error that occurred during fetching the updated user data
+                        console.error("Error fetching updated user data:", err);
+                        res.status(500).send("Internal Server Error");
+                    });
+            })
+            .catch(err => {
+                // Handle any error that occurred during the update operation
+                console.error("Error updating user data:", err);
+                res.status(500).send("Internal Server Error");
+            });
+    }
+});
 
 
 
