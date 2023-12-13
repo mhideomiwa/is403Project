@@ -37,8 +37,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
-        database: process.env.RDS_DB_NAME || 'project',
+        password: process.env.RDS_PASSWORD || 'admin',
+        database: process.env.RDS_DB_NAME || 'project3',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -158,19 +158,14 @@ app.get('/dance', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: userNavbar,
-                addSongButton: addSongButton,
-                addSongModal: addSongModal,
-            });
+                playlistImage: 'src="./assets/img/portfolio/cabin.png" alt="dating image"',
+                navbar: userNavbar });
             res.send(tableRowsHTML);
         } else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">',
-                navbar: guestNavbar,
-                addSongButton: '',
-                addSongModal: '',
+                playlistImage: 'src="./assets/img/portfolio/cabin.png" alt="dating image"',
+                navbar: guestNavbar
             });
             res.send(tableRowsHTML);
         }
@@ -178,6 +173,8 @@ app.get('/dance', async (req, res) => {
         console.error('Fetch error:', error);
     }
 });
+
+//'<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">'
 
 app.post('/dance', async (req, res) => {
     try {
