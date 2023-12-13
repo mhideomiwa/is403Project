@@ -37,7 +37,7 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'thuet12345'
+        password: process.env.RDS_PASSWORD || 'admin',
         database: process.env.RDS_DB_NAME || 'project3',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
@@ -290,7 +290,7 @@ app.get('/simp', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/cake.png" alt="simp image"',
                 navbar: userNavbar,
                 addSongButton: addSongButton,
                 addSongModal: addSongModal,
@@ -299,7 +299,7 @@ app.get('/simp', async (req, res) => {
         } else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/cake.png" alt="simp image"',
                 navbar: guestNavbar,
                 addSongButton: '',
                 addSongModal: '',
@@ -310,6 +310,8 @@ app.get('/simp', async (req, res) => {
         console.error('Fetch error:', error);
     }
 });
+
+// '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">'
 
 app.post('/simp', async (req, res) => {
     try {
@@ -337,7 +339,7 @@ app.get('/letsDate', async (req, res) => {
         if(req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/game.png" alt="dating image"',
                 navbar: userNavbar,
                 addSongButton: addSongButton,
                 addSongModal: addSongModal,
