@@ -17,8 +17,6 @@
     <!-- Container for the page content -->
     <div class="body-container">
 
-        <!-- Header container with the title -->
-
         <!-- Content container with the form for editing profile -->
         <div class="content-container">
             <!-- Form for editing profile information -->
@@ -27,7 +25,6 @@
                 <%= message %><br>
                 <!-- Input field for user's first name -->
                 <h1>Edit Profile</h1>
-                <br>
                 <br>
                 <label for="user_first_name">First Name</label>
                 <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30" onkeyup="validateFirstName()" value="<%- user.first_name %>"> 
