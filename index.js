@@ -290,7 +290,7 @@ app.get('/simp', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/cake.png" alt="simp image"',
                 navbar: userNavbar,
                 addSongButton: addSongButton,
                 addSongModal: addSongModal,
@@ -299,7 +299,7 @@ app.get('/simp', async (req, res) => {
         } else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/cake.png" alt="simp image"',
                 navbar: guestNavbar,
                 addSongButton: '',
                 addSongModal: '',
@@ -337,7 +337,7 @@ app.get('/letsDate', async (req, res) => {
         if(req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/game.png" alt="dating image"',
                 navbar: userNavbar,
                 addSongButton: addSongButton,
                 addSongModal: addSongModal,
