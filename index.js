@@ -400,7 +400,7 @@ app.post('/submitSong', async (req, res) => {
             playlistID = 1;
         } else if (playlistCategory === "simp") {
             playlistID = 2;
-        } else if (playlistCategory === "studyMusic") {
+        } else if (playlistCategory === "study") {
             playlistID = 3;
         } else if (playlistCategory === "letsDate") {
             playlistID = 4;
