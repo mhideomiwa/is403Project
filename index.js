@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
 
 
 app.get("/login", (req, res) => {
-    res.render(__dirname + "/public/pages/login", {message: ""});
+    res.render(__dirname + "/public/pages/login", {message: "", navbar: userNavbar});
 });
 
 app.post("/login", (req, res) => {
@@ -90,7 +90,7 @@ app.get("/logout", (req, res) => {
 
 
 app.get("/signup", (req, res) => {
-    res.render(__dirname + "/public/pages/signup.ejs", {message: ""});
+    res.render(__dirname + "/public/pages/signup.ejs", {message: "", navbar: guestNavbar});
 });
 
 app.post("/createUser", (req, res) => {
