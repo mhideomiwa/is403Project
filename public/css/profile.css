@@ -1,0 +1,53 @@
+/* Add these styles to your existing CSS file */
+
+.body-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px; /* Adjust the margin-top value as needed for more spacing */
+}
+
+.profile-container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Adjust the max-width as needed */
+    width: 100%;
+}
+
+.icon-wrapper {
+    font-size: 2em; /* Adjust the font size for the icon */
+    margin-bottom: 20px; /* Adjust the margin-bottom for spacing */
+}
+
+.profile-info {
+    margin-top: 20px; /* Adjust the margin-top for spacing */
+}
+
+.edit-profile-link {
+    margin-top: 20px; /* Adjust the margin-top for spacing */
+}
+
+
+.addsongbutton {
+    background-color: #1abb9b; /* Green color, you can adjust it */
+    color: rgb(255, 255, 255) !important; /* Text color */
+    padding: 15px 25px; /* Adjust padding as needed */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    display: block; /* Make it a block element */
+    margin: 20px auto 0; /* Center the button and add margin to the top */
+    cursor: pointer; /* Add cursor pointer on hover */
+    text-decoration: none; /* Remove underlining on the text */
+}
+
+
+.addsongbutton a {
+    color: white !important;
+    text-decoration: none
+}
+.addsongbutton:hover {
+    background-color: #14766b; /* Darker green color on hover, adjust as needed */
+}
