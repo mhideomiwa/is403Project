@@ -19,16 +19,16 @@ const addSongModal = `
             <label for="genre">Genre:*</label>
             <select id="genre" name="genre" required>
                 <option value="pop">Pop</option>
-            <option value="rock">Rock</option>
-            <option value="rap">Rap</option>
-            <option value="country">Country</option>
-            <option value="jazz">Jazz</option>
-            <option value="r&b">R&B</option>
-            <option value="classical">Classical</option>
-            <option value="folk">Folk</option>
-            <option value="indie">Indie</option>
-            <option value="gospel">Gospel</option>
-            <option value="soul">Soul</option>
+                <option value="rock">Rock</option>
+                <option value="rap">Rap</option>
+                <option value="country">Country</option>
+                <option value="jazz">Jazz</option>
+                <option value="r&b">R&B</option>
+                <option value="classical">Classical</option>
+                <option value="folk">Folk</option>
+                <option value="indie">Indie</option>
+                <option value="gospel">Gospel</option>
+                <option value="soul">Soul</option>
                 <!-- Add genre options as needed -->
             </select>
             <br>
@@ -39,8 +39,8 @@ const addSongModal = `
                 <option value="dance">Dance</option>
             <option value="simp">Simp</option>
             <option value="gym">Gym</option>
-            <option value="letsDate">LetsDate</option>
-            <option value="studyMusic">StudyMusic</option>
+            <option value="letsDate">Let's Date</option>
+            <option value="studyMusic">Study Music</option>
             
                 <!-- Add playlist category options as needed -->
             </select>
