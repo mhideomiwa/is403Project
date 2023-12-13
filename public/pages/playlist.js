@@ -19,6 +19,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+
+
+function openSongShareModal() {
+    var modal = document.getElementById("songShareModal");
+    modal.style.display = "flex";  // Use flex to center the content vertically and horizontally
+}
+
+// Add a function to close the modal (optional)
+function closeSongShareModal() {
+    var modal = document.getElementById("songShareModal");
+    modal.style.display = "none";
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function (event) {
+    var modal = document.getElementById("songShareModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
 function getEndpoint() {
     // Logic to determine the endpoint based on current URL or any other criterion
     // For example:
@@ -38,3 +59,4 @@ function getEndpoint() {
         return '/letsDate'; // Default endpoint
     }
 }
+
