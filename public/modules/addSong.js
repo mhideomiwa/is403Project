@@ -48,11 +48,11 @@ const addSongModal = `
             <br>
             <!-- Additional Fields can be added as needed -->
 
-            <button type="submit">Share Song</button>
+            <button class = "addsongbutton" type="submit">Add to playlist</button>
         </form>
     </div>
 </div>`;
 
-const addSongButton = `<button onclick="openSongShareModal()">Open Song Share Modal</button>`;
+const addSongButton = `<button class = "addsongbutton" onclick="openSongShareModal()">Add a song!</button>`;
 
 module.exports = { addSongModal, addSongButton };
