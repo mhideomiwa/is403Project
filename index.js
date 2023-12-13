@@ -372,9 +372,23 @@ app.post('/letsDate', async (req, res) => {
     }
 });
 
-// app.post('/createUser', (req,res) => {
-//     req.body.()
-// })
+app.post('/addSong', async (req, res) => {
+    try {
+        const songTitle = req.body.songTitle;
+        const artistName = req.body.artistName;
+        const genre = req.body.genre;
+        const playlistName = req.body.playlistName;
+
+        knex("song").insert({
+            artist: artistName,
+            playlist_id: playlistID
+        }).then(songplay => {
+            res.redirect('/' + playlistName);
+        });
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
 
 
 
