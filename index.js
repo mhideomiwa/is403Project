@@ -130,23 +130,7 @@ app.get('/about', (req, res) => {
     res.render('about', {navbar: guestNavbar });
 });
 
-app.get('/dance', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/gym', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/study', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/simp', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/letsDate', async (req, res) => {
+app.get('/dance', async (req, res) => {
     try {
         const songs = knex("songplay").select()
             .join("song", "songplay.song_id", "=", "song.song_id")
@@ -154,7 +138,127 @@ app.get('/letsDate', async (req, res) => {
             .where("playlist.playlist_id", 1);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">' });
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/dance', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 1);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/gym', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 5);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/gym', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 5);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/study', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 3);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/study', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 3);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/simp', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 2);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/simp', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 2);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/letsDate', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 4);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
         res.send(tableRowsHTML);
     } catch (error) {
         console.error('Fetch error:', error);
