@@ -118,7 +118,9 @@ app.post("/signup", (req, res) => {
 
 })
 
-
+app.get('/addSong', (req, res) => {
+    res.render('addSong', {navbar: guestNavbar });
+});
 
 /*
 app.get('/login', (req, res) => {
