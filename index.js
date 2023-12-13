@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
 
 
 app.get("/login", (req, res) => {
-    res.render(__dirname + "/public/pages/login", {message: "", navbar: userNavbar});
+    res.render(__dirname + "/public/pages/login", {message: "", navbar: guestNavbar});
 });
 
 app.post("/login", (req, res) => {

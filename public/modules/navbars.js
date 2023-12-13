@@ -25,12 +25,18 @@ const userNavbar = `
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Home</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/about">Directions</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded logInButton" href="/logout">Log Out</a></li>
-                </ul>
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Home</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/about">Directions</a></li>
+        <li class="nav-item mx-0 mx-lg-1 dropdown">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded logInButton" href="#">My Profile</a>
+            <div class="dropdown-content">
+                <a href="/logout">Logout</a>
+                <a href="/profile">View Profile</a>
             </div>
+        </li>
+    </ul>
+</div>
         </div>
     </nav>`;
 
