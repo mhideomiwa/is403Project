@@ -36,8 +36,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
-        database: process.env.RDS_DB_NAME || 'project',
+        password: process.env.RDS_PASSWORD || 'admin',
+        database: process.env.RDS_DB_NAME || 'project3',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -73,7 +73,7 @@ app.post("/login", (req, res) => {
                 req.session.user = {
                     username: username
                 }
-                res.sendFile(__dirname + "/public/pages/index.ejs");
+                res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
             } else {
                 // If password is incorrect, display error message in login.ejs
                 res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
@@ -85,13 +85,15 @@ app.post("/login", (req, res) => {
     });
 });
 
+
 //logout
 app.get("/logout", (req, res) => {
     req.session.destroy();
     res.sendFile(__dirname + "/public/pages/index.ejs");
 })
 
-app.post("/signup", (req, res) => {
+
+app.post("/createUser", (req, res) => {
     let firstname = req.body.user_first_name;
     let lastname = req.body.user_last_name;
     let username = req.body.username;
@@ -102,11 +104,11 @@ app.post("/signup", (req, res) => {
             // If username already exists, display error message in signup.ejs
             res.render(__dirname + "/public/pages/signup", {message: 'Username already exists.'});
         }
-        else if(firstname === "" || lastname === "" || username === "" || password === "" || email === "") {
+        else if(firstname === "" || lastname === "" || username === "" || password === "") {
             // If any field is empty, display error message in signup.ejs
             res.render(__dirname + "/public/pages/signup", {message: 'Please fill in all fields.'});
         }
-        else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30 || email.length > 30) {
+        else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30) {
             // If any field is longer than 30 characters, display error message in signup.ejs
             res.render(__dirname + "/public/pages/signup", {message: 'Please make sure all fields are less than 30 characters.'});
         }
@@ -117,7 +119,7 @@ app.post("/signup", (req, res) => {
                 username: username,
                 password: password
             }).then(user => {
-                res.sendFile(__dirname + "/public/pages/index.ejs");
+                res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
             });
         }
     });
@@ -136,23 +138,7 @@ app.get('/about', (req, res) => {
     res.render('about', {navbar: guestNavbar });
 });
 
-app.get('/dance', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/gym', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/study', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/simp', (req, res) => {
-    res.render('playlist');
-});
-
-app.get('/letsDate', async (req, res) => {
+app.get('/dance', async (req, res) => {
     try {
         const songs = knex("songplay").select()
             .join("song", "songplay.song_id", "=", "song.song_id")
@@ -160,7 +146,127 @@ app.get('/letsDate', async (req, res) => {
             .where("playlist.playlist_id", 1);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: './assets/img/portfolio/game.png', navbar: guestNavbar });
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/cabin.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/dance', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 1);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/gym', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 5);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/gym', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 5);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/study', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 3);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/study', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 3);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/simp', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 2);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        res.send(tableRowsHTML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.post('/simp', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 2);
+        const songs2 = await songs;
+        console.log('Successful Post Request')
+        const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
+        res.send(tableRowsTHML);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
+
+app.get('/letsDate', async (req, res) => {
+    try {
+        const songs = knex("songplay").select()
+            .join("song", "songplay.song_id", "=", "song.song_id")
+            .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
+            .where("playlist.playlist_id", 4);
+        const songs2 = await songs;
+        // console.log(songs2)
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
         res.send(tableRowsHTML);
     } catch (error) {
         console.error('Fetch error:', error);
@@ -172,7 +278,7 @@ app.post('/letsDate', async (req, res) => {
         const songs = knex("songplay").select()
             .join("song", "songplay.song_id", "=", "song.song_id")
             .join("playlist", "songplay.playlist_id", "=", "playlist.playlist_id")
-            .where("playlist.playlist_id", 1);
+            .where("playlist.playlist_id", 4);
         const songs2 = await songs;
         console.log('Successful Post Request')
         const tableRowsTHML = await ejs.renderFile(__dirname + '/public/modules/songTable.ejs', { songs: songs2 });
