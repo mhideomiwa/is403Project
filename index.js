@@ -461,12 +461,13 @@ app.get('/editProfile', (req, res) => {
 app.post('/editProfile', (req, res) => {
     let firstname = req.body.user_first_name;
     let lastname = req.body.user_last_name;
-    let email = req.body.user_email;
 
-    if (firstname === "" || lastname === "" || email === "") {
+    console.log(firstname, lastname);
+
+    if (firstname === "" || lastname === "") {
         // If any field is empty, display an error message
         res.render(__dirname + "/public/pages/editProfile", { message: 'Please fill in all fields.' });
-    } else if (firstname.length > 30 || lastname.length > 30 || email.length > 30) {
+    } else if (firstname.length > 30 || lastname.length > 30) {
         // If any field is longer than 30 characters, display an error message
         res.render(__dirname + "/public/pages/editProfile", { message: 'Please make sure all fields are less than 30 characters.' });
     } else {
@@ -476,7 +477,6 @@ app.post('/editProfile', (req, res) => {
             .update({
                 first_name: firstname,
                 last_name: lastname,
-                email: email,
             })
             .then(() => {
                 // Fetch the updated user data after the update operation
