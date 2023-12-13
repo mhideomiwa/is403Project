@@ -386,21 +386,54 @@ app.post('/letsDate', async (req, res) => {
     }
 });
 
+
+
 app.post('/addSong', async (req, res) => {
     try {
         const songTitle = req.body.songTitle;
         const artistName = req.body.artistName;
         const genre = req.body.genre;
-        const playlistName = req.body.playlistName;
+        const playlistCategory = req.body.playlistCategory;
+        let playlistID = 0;
 
-        knex("song").insert({
-            artist: artistName,
+        if (playlistCategory === "dance") {
+            playlistID = 1;
+        } else if (playlistCategory === "simp") {
+            playlistID = 2;
+        } else if (playlistCategory === "studyMusic") {
+            playlistID = 3;
+        } else if (playlistCategory === "letsDate") {
+            playlistID = 4;
+        } else if (playlistCategory === "gym") {
+            playlistID = 5;
+        }
+
+        const insertedSong = await knex("song")
+            .insert({
+                song_title: songTitle,
+                artist: artistName,
+                genre: genre
+            })
+            .returning('song_id');
+
+        const songID = insertedSong[0]; // Extract the song ID from the returned array
+
+        await knex("songplay").insert({
+            song_id: songID,
             playlist_id: playlistID
-        }).then(songplay => {
-            res.redirect('/' + playlistName);
         });
+
+        await knex("songuser").insert({
+            song_id: songID,
+            username: req.session.user.username
+        });
+
+        console.log('Song added')
+
+        res.redirect("/" + playlistCategory);
     } catch (error) {
         console.error('Fetch error:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
 
