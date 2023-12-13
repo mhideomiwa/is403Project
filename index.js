@@ -450,8 +450,8 @@ app.get('/profile', (req, res) => {
 
 app.get('/editProfile', (req, res) => {
     if (req.session.user) {
-        knex("users").select().where("username", req.session.user.username).then(user => {
-            res.render(__dirname + "/public/pages/editProfile.ejs", {navbar: usernavbar, user: user[0], message: ''});
+        knex("user").select().where("username", req.session.user.username).then(user => {
+            res.render(__dirname + "/public/pages/editProfile.ejs", {navbar: userNavbar, user: user[0], message: ''});
         })
     } else {
         res.redirect('login');
@@ -471,7 +471,7 @@ app.post('/editProfile', (req, res) => {
         res.render(__dirname + "/public/pages/editProfile", { message: 'Please make sure all fields are less than 30 characters.' });
     } else {
         // Update the user's information in the database
-        knex("users")
+        knex("user")
             .where("username", req.session.user.username)
             .update({
                 first_name: firstname,
@@ -480,7 +480,7 @@ app.post('/editProfile', (req, res) => {
             })
             .then(() => {
                 // Fetch the updated user data after the update operation
-                knex("users")
+                knex("user")
                     .select()
                     .where("username", req.session.user.username)
                     .then(updatedUser => {
