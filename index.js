@@ -37,8 +37,8 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || 'localhost',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'thuet12345',
-        database: process.env.RDS_DB_NAME || 'project3',
+        password: process.env.RDS_PASSWORD || 'C1$$&!Xi46RRu0HS',
+        database: process.env.RDS_DB_NAME || 'project',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     }
@@ -388,7 +388,7 @@ app.post('/letsDate', async (req, res) => {
 
 
 
-app.post('/addSong', async (req, res) => {
+app.post('/submitSong', async (req, res) => {
     try {
         const songTitle = req.body.songTitle;
         const artistName = req.body.artistName;
@@ -416,7 +416,7 @@ app.post('/addSong', async (req, res) => {
             })
             .returning('song_id');
 
-        const songID = insertedSong[0]; // Extract the song ID from the returned array
+        const songID = insertedSong[0].song_id; // Extract the song ID from the returned array
 
         await knex("songplay").insert({
             song_id: songID,

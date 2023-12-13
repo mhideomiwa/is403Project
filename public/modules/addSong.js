@@ -40,7 +40,7 @@ const addSongModal = `
             <option value="simp">Simp</option>
             <option value="gym">Gym</option>
             <option value="letsDate">Let's Date</option>
-            <option value="studyMusic">Study Music</option>
+            <option value="study">Study Music</option>
             
                 <!-- Add playlist category options as needed -->
             </select>
