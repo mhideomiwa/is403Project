@@ -201,7 +201,7 @@ app.get('/gym', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/safe.png" alt="dating image"',
                 navbar: userNavbar
             });
             res.send(tableRowsHTML);
@@ -209,7 +209,7 @@ app.get('/gym', async (req, res) => {
         else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/safe.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/safe.png" alt="dating image"',
                 navbar: guestNavbar
             });
             res.send(tableRowsHTML);
@@ -245,7 +245,7 @@ app.get('/study', async (req, res) => {
         if (req.session.user) {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/circus.png" alt="dating image"',
                 navbar: userNavbar
             });
             res.send(tableRowsHTML);
@@ -253,7 +253,7 @@ app.get('/study', async (req, res) => {
         else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/circus.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/circus.png" alt="dating image"',
                 navbar: guestNavbar
             });
             res.send(tableRowsHTML);
@@ -286,7 +286,7 @@ app.get('/simp', async (req, res) => {
             .where("playlist.playlist_id", 2);
         const songs2 = await songs;
         // console.log(songs2)
-        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/cake.png" alt="simp image" name="playlistImg" id="playlistImg">', navbar: guestNavbar });
+        const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: 'src="./assets/img/portfolio/cake.png" alt="simp image"', navbar: guestNavbar });
         res.send(tableRowsHTML);
     } catch (error) {
         console.error('Fetch error:', error);
@@ -317,13 +317,13 @@ app.get('/letsDate', async (req, res) => {
         const songs2 = await songs;
         // console.log(songs2)
         if(req.session.user) {
-            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">', navbar: userNavbar });
+            const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', { songs: songs2, playlistImage: 'src="./assets/img/portfolio/game.png" alt="dating image"', navbar: userNavbar });
             res.send(tableRowsHTML);
         }
         else {
             const tableRowsHTML = await ejs.renderFile(__dirname + '/public/pages/playlist.ejs', {
                 songs: songs2,
-                playlistImage: '<img src="./assets/img/portfolio/game.png" alt="dating image" name="playlistImg" id="playlistImg">',
+                playlistImage: 'src="./assets/img/portfolio/game.png" alt="dating image"',
                 navbar: guestNavbar
             });
             res.send(tableRowsHTML);
