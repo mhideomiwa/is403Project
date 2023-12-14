@@ -60,11 +60,12 @@ input {
 .deleteButton {
     position: absolute;
     right: 0;
-    bottom: 20px; /* Adjust the top position as needed */
+    bottom: 10px; /* Adjust the top position as needed */
     background-color: #be0e0e;
     color: white;
     padding: 15px 25px; /* Adjust padding as needed */
-    margin: 8px 0;
+    margin-top: 10px;
+    margin: 15px 15px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
