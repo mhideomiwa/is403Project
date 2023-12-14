@@ -15,6 +15,7 @@ h1 {
 }
 
 .content-container {
+    position: relative;
     background-color: #fff;
     padding: 20px;
     border-radius: 0 0 8px 8px;
@@ -57,6 +58,9 @@ input {
 }
 
 .deleteButton {
+    position: absolute;
+    right: 0;
+    top: 20px; /* Adjust the top position as needed */
     background-color: #be0e0e;
     color: white;
     padding: 15px 25px; /* Adjust padding as needed */
@@ -64,8 +68,7 @@ input {
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out; /* Smooth color transition */
-    right: 0;
+    transition: background-color 0.3s ease-in-out; 
 }
 
 .deleteButton:hover {
