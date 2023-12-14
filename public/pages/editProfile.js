@@ -3,7 +3,7 @@ function deleteUser() {
         fetch(`/deleteUser/`, {
             method: 'DELETE'
         }).then(() => {
-            redirect("/");
+            window.location.href = "/";
         }).catch(error => {
             console.error('Error deleting user:', error);
             // Handle error, show a message, etc.
