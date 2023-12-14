@@ -65,7 +65,7 @@ input {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out; /* Smooth color transition */
-    margin-left: auto;
+    right: 0;
 }
 
 .deleteButton:hover {
