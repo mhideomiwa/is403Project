@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <script src="signup.js"></script>
+    <script src="pages/signup.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -29,21 +29,21 @@
                 <form action="/createUser" method="post" class="signUpForm" onsubmit="submitForm()">
                     <%= message %><br>
                     <label for="user_first_name">First Name</label> <br>
-                    <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30"> <br>
+                    <input type="text" id="user_first_name" name="user_first_name" class="required, signUpInput" maxlength="30" onkeyup="validateFirstName()"> <br>
                     <span id="firstNameMessage"></span>
                     <label for="user_last_name">Last Name</label> <br>
-                    <input type="text" id="user_last_name" name="user_last_name" class="required, signUpInput" maxlength="30"> <br>
+                    <input type="text" id="user_last_name" name="user_last_name" class="required, signUpInput" maxlength="30" onkeyup="validateLastName()"> <br>
                     <span id="lastNameMessage"></span>
                     <label for="username">Username</label> <br>
-                    <input type="text" id="username" name="username" class="required, signUpInput" maxlength="30"> <br>
+                    <input type="text" id="username" name="username" class="required, signUpInput" maxlength="30" onkeyup="validateUsername()"> <br>
                     <span id="userNameMessage"></span>
                     <label for="password">Password</label> <br>
-                    <input type="password" id="password" name="password" class="required, signUpInput" maxlength="30"  placeholder="At least 6 characters"> <br>
+                    <input type="password" id="password" name="password" class="required, signUpInput" maxlength="30"  placeholder="At least 6 characters" onkeyup="validatePassword()"> <br>
                     <span id="pwMessage"></span>
                     <label for="password_confirm">Confirm Password</label> <br>
-                    <input type="password" id="password_confirm" name="password_confirm" class="required, signUpInput" maxlength="30">
+                    <input type="password" id="password_confirm" name="password_confirm" class="required, signUpInput" maxlength="30" onkeyup="validatePasswordConfirm()">
                     <span id="pwConfirmMessage"></span> <br>
-                    <input type="submit" id="signup" value="Sign Up" class="signUpButton">
+                    <input type="submit" id="signupbutton" value="Sign Up" class="signUpButton" disabled="disabled">
                 </form>
             </div>
             <div>Already have an account? <a href="login">Log in</a> </div>
