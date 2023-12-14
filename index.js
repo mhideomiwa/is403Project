@@ -504,6 +504,21 @@ app.post('/editProfile', (req, res) => {
     }
 });
 
+app.delete('/deleteUser/', async (req, res) => {
+    try {
+        const {username} = req.user.username
+
+        // Delete the user from the 'users' table where the username matches
+        await knex('users').where({ username: username }).del();
+
+        res.sendStatus(200); // Send a success status upon successful deletion
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.sendStatus(500); // Send a server error status on failure
+    }
+});
+
+
 
 
 app.listen(port, () => { console.log('listening on ' + port) });
