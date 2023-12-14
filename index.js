@@ -102,15 +102,15 @@ app.post("/createUser", (req, res) => {
     knex("user").select().where("username", username).then(user => {
         if (user.length > 0) {
             // If username already exists, display error message in signup.ejs
-            res.render(__dirname + "/public/pages/signup", {message: 'Username already exists.'});
+            res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Username already exists.'});
         }
         else if(firstname === "" || lastname === "" || username === "" || password === "") {
             // If any field is empty, display error message in signup.ejs
-            res.render(__dirname + "/public/pages/signup", {message: 'Please fill in all fields.'});
+            res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Please fill in all fields.'});
         }
         else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30) {
             // If any field is longer than 30 characters, display error message in signup.ejs
-            res.render(__dirname + "/public/pages/signup", {message: 'Please make sure all fields are less than 30 characters.'});
+            res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Please make sure all fields are less than 30 characters.'});
         }
         else {
             knex("user").insert({
@@ -122,7 +122,7 @@ app.post("/createUser", (req, res) => {
                 req.session.user = {
                     username: username
                 }
-                res.render(__dirname + "/public/index.ejs", {navbar: guestNavbar});
+                res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
             });
         }
     });
