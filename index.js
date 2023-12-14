@@ -506,10 +506,11 @@ app.post('/editProfile', (req, res) => {
 
 app.delete('/deleteUser/', async (req, res) => {
     try {
-        const {username} = req.user.username
+        // const {username} = req.session.user
+        // console.log(username)
 
         // Delete the user from the 'users' table where the username matches
-        await knex('users').where({ username: username }).del();
+        await knex('user').where("username", req.session.user.username).del();
 
         res.sendStatus(200); // Send a success status upon successful deletion
     } catch (error) {
