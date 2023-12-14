@@ -59,28 +59,60 @@ app.get("/login", (req, res) => {
     res.render(__dirname + "/public/pages/login", {message: "", navbar: guestNavbar});
 });
 
+//encrypted login
 app.post("/login", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
     knex.select().from("user").where("username", username).then(user => {
         if (user.length > 0) {
-            if (user[0].password === password) {
-                req.session.user = {
-                    username: username
+            const hashedPassword = user[0].password; // Fetch hashed password from the database
+
+            bcrypt.compare(password, hashedPassword, (err, result) => {
+                if (err) {
+                    // Handle comparison error
+                    console.error("Error comparing passwords:", err);
+                    res.status(500).send("Internal Server Error");
+                } else if (result) {
+                    // Passwords match, set session and render appropriate page
+                    req.session.user = {
+                        username: username,
+                    };
+                    res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
+                } else {
+                    // If password is incorrect, display error message in login.ejs
+                    res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.', navbar: guestNavbar });
                 }
-                res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
-            } else {
-                // If password is incorrect, display error message in login.ejs
-                res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
-            }
+            });
         } else {
             // If username doesn't exist, display error message in login.ejs
-            res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
+            res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.', navbar: guestNavbar });
         }
     });
 });
 
+// app.post("/login", (req, res) => {
+//     let username = req.body.username;
+//     let password = req.body.password;
+//
+//     knex.select().from("user").where("username", username).then(user => {
+//         if (user.length > 0) {
+//             if (user[0].password === password) {
+//                 req.session.user = {
+//                     username: username
+//                 }
+//                 res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
+//             } else {
+//                 // If password is incorrect, display error message in login.ejs
+//                 res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
+//             }
+//         } else {
+//             // If username doesn't exist, display error message in login.ejs
+//             res.render(__dirname + "/public/pages/login", { message: 'Incorrect username or password.' });
+//         }
+//     });
+// });
+//
 
 //logout
 app.get("/logout", (req, res) => {
@@ -99,35 +131,81 @@ app.post("/createUser", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
-    knex("user").select().where("username", username).then(user => {
-        if (user.length > 0) {
-            // If username already exists, display error message in signup.ejs
-            res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Username already exists.'});
-        }
-        else if(firstname === "" || lastname === "" || username === "" || password === "") {
-            // If any field is empty, display error message in signup.ejs
-            res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Please fill in all fields.'});
-        }
-        else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30) {
-            // If any field is longer than 30 characters, display error message in signup.ejs
-            res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Please make sure all fields are less than 30 characters.'});
-        }
-        else {
-            knex("user").insert({
-                first_name: firstname,
-                last_name: lastname,
-                username: username,
-                password: password
-            }).then(user => {
-                req.session.user = {
-                    username: username
+    // Hash the password before storing it in the database
+    bcrypt.hash(password, 10, (err, hash) => {
+        if (err) {
+            // Handle any error that occurred during hashing
+            console.error("Error hashing password:", err);
+            res.status(500).send("Internal Server Error");
+        } else {
+            knex("user").select().where("username", username).then(user => {
+                if (user.length > 0) {
+                    // If username already exists, display error message in signup.ejs
+                    res.render(__dirname + "/public/pages/signup", { message: 'Username already exists.', navbar: guestNavbar});
+                } else if (firstname === "" || lastname === "" || username === "" || password === "") {
+                    // If any field is empty, display error message in signup.ejs
+                    res.render(__dirname + "/public/pages/signup", { message: 'Please fill in all fields.' });
+                } else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30) {
+                    // If any field is longer than 30 characters, display error message in signup.ejs
+                    res.render(__dirname + "/public/pages/signup", { message: 'Please make sure all fields are less than 30 characters.', navbar: guestNavbar });
+                } else {
+                    // Insert the hashed password into the database
+                    knex("user").insert({
+                        first_name: firstname,
+                        last_name: lastname,
+                        username: username,
+                        password: hash, // Store the hashed password
+                    }).then(user => {
+                        req.session.user = {
+                            username: username
+                        }
+                        res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
+                    }).catch(err => {
+                        console.error("Error inserting user data:", err);
+                        res.status(500).send("Internal Server Error");
+                    });
                 }
-                res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
             });
         }
     });
-
-})
+});
+//  //Unencrypted login
+//
+// app.post("/createUser", (req, res) => {
+//     let firstname = req.body.user_first_name;
+//     let lastname = req.body.user_last_name;
+//     let username = req.body.username;
+//     let password = req.body.password;
+//
+//     knex("user").select().where("username", username).then(user => {
+//         if (user.length > 0) {
+//             // If username already exists, display error message in signup.ejs
+//             res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Username already exists.'});
+//         }
+//         else if(firstname === "" || lastname === "" || username === "" || password === "") {
+//             // If any field is empty, display error message in signup.ejs
+//             res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Please fill in all fields.'});
+//         }
+//         else if (firstname.length > 30 || lastname.length > 30 || username.length > 30 || password.length > 30) {
+//             // If any field is longer than 30 characters, display error message in signup.ejs
+//             res.render(__dirname + "/public/pages/signup", {navbar: guestNavbar, message: 'Please make sure all fields are less than 30 characters.'});
+//         }
+//         else {
+//             knex("user").insert({
+//                 first_name: firstname,
+//                 last_name: lastname,
+//                 username: username,
+//                 password: password
+//             }).then(user => {
+//                 req.session.user = {
+//                     username: username
+//                 }
+//                 res.render(__dirname + "/public/index.ejs", {navbar: userNavbar});
+//             });
+//         }
+//     });
+//
+// })
 
 app.get('/addSong', (req, res) => {
     res.render('addSong', {navbar: guestNavbar });
