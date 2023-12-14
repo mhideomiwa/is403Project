@@ -56,6 +56,21 @@ input {
     background-color: #159e7d; /* Change to your preferred hover color */
 }
 
+.deleteButton {
+    background-color: #be0e0e;
+    color: white;
+    padding: 15px 25px; /* Adjust padding as needed */
+    margin: 8px 0;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+.deleteButton:hover {
+    background-color: #7e0c0c; /* Change to your preferred hover color */
+}
+
 a {
     display: block;
     margin-top: 10px;
